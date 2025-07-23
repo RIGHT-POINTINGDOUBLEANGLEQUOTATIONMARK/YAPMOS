@@ -1,4 +1,5 @@
 // NotJustRegEx.js
+// YAPMOS version
 // Scratch Extension that does simple regex
 // Unsandbox: Optional! (You can leave sandboxed)
 // GH: IcedLua
