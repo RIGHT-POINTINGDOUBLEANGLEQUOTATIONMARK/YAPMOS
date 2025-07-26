@@ -1,5 +1,4 @@
 // NotJustRegEx.js
-// YAPMOS version
 // Scratch Extension that does simple regex
 // Unsandbox: Optional! (You can leave sandboxed)
 // GH: IcedLua
@@ -92,7 +91,7 @@
           },
           {
             blockType: Scratch.BlockType.LABEL,
-            text: 'Luau styled blocks'
+            text: 'not... regex i guess'
           },
           {
             opcode: 'populateTemplateWithInputs',
