@@ -1,1 +1,37 @@
-(()=>new Promise((r,j)=>{if(window.ColorThief)return exec();var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js';s.onload=exec;s.onerror=()=>j(new Error('Failed to load Color Thief library'));document.head.appendChild(s);function exec(){const i=new Image();const start=Date.now();i.src='%s';i.onload=()=>{try{const c=new ColorThief();r({dominantColor:c.getColor(i),palette:c.getPalette(i,5)});}catch(e){j(new Error('Color extraction failed: '+e.message));}};i.onerror=()=>{const type=i.src.startsWith('data:')?'data URL':'URL';const len=i.src.length;const dur=Date.now()-start;j(new Error(`Failed to load image: ${type}, length ${len}, after ${dur}ms`));};}}))()
+(() => new Promise((resolve, reject) => {
+    /* Check if ColorThief is already loaded */
+    if (window.ColorThief) return run();
+
+    /* Load ColorThief from CDN */
+    const script = document.createElement('script');
+    script.src = 'https://cdnjs.cloudflare.com/ajax/libs/color-thief/2.3.2/color-thief.umd.js';
+    script.onload = run;
+    script.onerror = () => reject(new Error('Failed to load Color Thief library'));
+    document.head.appendChild(script);
+
+    /* Function to run once library is ready */
+    function run() {
+        const img = new Image();
+        const start = Date.now();
+        img.src = '%s'; /* <- Replace this with your image URL */
+
+        img.onload = () => {
+            try {
+                const thief = new ColorThief();
+                resolve({
+                    dominantColor: thief.getColor(img),
+                    palette: thief.getPalette(img, 5)
+                });
+            } catch (err) {
+                reject(new Error('Color extraction failed: ' + err.message));
+            }
+        };
+
+        img.onerror = () => {
+            const type = img.src.startsWith('data:') ? 'data URL' : 'URL';
+            const len = img.src.length;
+            const dur = Date.now() - start;
+            reject(new Error(`Failed to load image: ${type}, length ${len}, after ${dur}ms`));
+        };
+    }
+}))();
