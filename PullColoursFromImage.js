@@ -13,7 +13,7 @@
     function run() {
         const img = new Image();
         const start = Date.now();
-        img.src = '%s'; /* <- Replace this with your image URL */
+        img.src = IMAGE_SRC; /* <- Replace this with your image URL */
 
         img.onload = () => {
             try {
